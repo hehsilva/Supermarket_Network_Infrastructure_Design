@@ -1,0 +1,25 @@
+enable
+configure terminal
+
+! Enable trunking on uplink interfaces
+interface range gig1/0/2 - 8
+ switchport mode trunk
+exit
+
+! VLAN Definitions for Head Office (HO) with subnet and gateway info
+vlan 10
+ name Management       
+vlan 20
+ name POS              
+vlan 30
+ name CCTV             
+vlan 40
+ name VoIP             
+vlan 50
+ name Staff_WiFi       
+exit
+
+
+
+end
+do write memory

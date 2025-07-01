@@ -1,0 +1,76 @@
+enable
+configure terminal
+
+! Enable trunking on uplink ports fa0/1-2
+interface range fa0/1 - 2
+ switchport mode trunk
+exit
+
+! VLAN Definitions with updated names and subnet info
+vlan 10
+ name Management       ! Subnet: 10.3.0.0/26, Gateway: 10.3.0.1
+vlan 20
+ name POS              ! Subnet: 10.3.0.64/26, Gateway: 10.3.0.65
+vlan 30
+ name CCTV             ! Subnet: 10.3.1.0/26, Gateway: 10.3.1.1
+vlan 40
+ name VoIP             ! Subnet: 10.3.1.64/26, Gateway: 10.3.1.65
+vlan 50
+ name Staff_WiFi       ! Subnet: 10.3.2.0/26, Gateway: 10.3.2.1
+vlan 60
+ name Customer_WiFi
+vlan 70
+ name Digital_Ads
+vlan 80
+ name ATM_Banking
+vlan 90
+ name Delivery
+
+exit
+
+! Access port configurations per VLAN
+interface range fa0/3 - 4
+ switchport mode access
+ switchport access vlan 10  ! Management
+
+interface range fa0/5 - 6
+ switchport mode access
+ switchport access vlan 20  ! POS
+
+interface range fa0/7 - 8
+ switchport mode access
+ switchport access vlan 30  ! CCTV
+
+interface range fa0/9 - 10
+ switchport mode access
+ switchport access vlan 40  ! VoIP
+
+interface range fa0/11 - 12
+ switchport mode access
+ switchport access vlan 50  ! Staff Wi-Fi
+
+interface range fa0/13 - 14
+ switchport mode access
+ switchport access vlan 60  ! Customer Wi-Fi
+
+interface range fa0/15 - 16
+ switchport mode access
+ switchport access vlan 70  ! Digital Ads
+
+interface range fa0/17 - 18
+ switchport mode access
+ switchport access vlan 80  ! ATM/Banking
+
+interface range fa0/19 - 20
+ switchport mode access
+ switchport access vlan 90  ! Delivery
+
+exit
+
+! Enable PortFast and BPDU Guard on all access ports
+interface range fa0/3 - 24
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+
+end
+do write memory

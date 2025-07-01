@@ -1,0 +1,41 @@
+enable
+configure terminal
+
+
+interface range gig1/0/2 - 8
+ switchport mode trunk
+exit
+
+
+vlan 10
+ name Management
+vlan 20
+ name POS
+vlan 30
+ name CCTV
+vlan 40
+ name VoIP
+vlan 50
+ name Staff_WiFi
+vlan 60
+ name Customer_WiFi
+vlan 70
+ name Digital_Ads
+vlan 80
+ name ATM_Banking
+vlan 90
+ name Delivery_Pickup
+exit
+
+
+interface range gig1/0/21 - 24
+ channel-group 1 mode active
+exit
+
+
+interface port-channel 1
+ switchport mode trunk
+exit
+
+end
+write memory

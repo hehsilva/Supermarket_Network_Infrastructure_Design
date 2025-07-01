@@ -1,0 +1,85 @@
+hostname PERIMETER_TWL
+domain-name supermarket.com
+
+int gig1/2
+no shutdown
+ip address 192.248.1.5 255.255.255.252
+nameif INSIDE 
+security-level 100
+ex
+
+int gig1/6
+no shutdown
+ip address 30.0.1.1 255.255.255.0
+nameif DMZ
+security-level 70
+ex
+
+
+
+int gig1/3
+no shutdown
+ip address 192.248.1.2 255.255.255.252
+nameif OUTSIDE
+security-level 0
+ex
+
+do wr
+
+wr mem
+
+
+ip routing 
+router ospf 2
+router-id 6.6.6.6
+network 192.248.1.0 255.255.255.252 area 0
+network 192.248.1.0 255.255.255.252 area 0
+network 30.0.1.0 255.255.255.0 area 0
+ex
+
+do wr
+wr mem
+
+
+route OUTSIDE 0.0.0.0 0.0.0.0 192.248.1.2
+wr mem
+
+
+object network Management-INTERNET 
+subnet 10.0.0.0 255.255.255.0
+nat (INSIDE,OUTSIDE) dynamic interface
+ex
+
+object network VoIP-INTERNET
+subnet 10.0.3.0 255.255.255.0
+nat (INSIDE,OUTSIDE) dynamic interface
+ex
+
+object network DMZ-INTERNET
+subnet 30.0.1.0 255.255.255.0
+nat (DMZ,OUTSIDE) dynamic interface
+ex
+
+wr mem
+
+show start
+
+
+access-list INSIDE_DMZ extended permit icmp any any
+access-list INSIDE-DMZ extended permit tcp any any eq 80
+access-list INSIDE-DMZ extended permit udp any any eq 67
+access-list INSIDE-DMZ extended permit udp any any eq 68
+access-list INSIDE-DMZ extended permit udp any any eq 53
+access-list INSIDE-DMZ extended permit tcp any any eq 53
+
+
+access-group INSIDE-DMZ in interface DMZ
+access-list INSIDE-OUTSIDE extend permit icmp any any
+access-list INSIDE-OUTSIDE extend permit tcp any any eq 80
+
+access-group INSIDE-OUTSIDE in interface OUTSIDE
+do wr
+
+
+conf t
+show start

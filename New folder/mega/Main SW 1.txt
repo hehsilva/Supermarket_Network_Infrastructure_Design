@@ -1,0 +1,126 @@
+enable
+configure terminal
+
+! Enable trunking on uplink interfaces
+interface range gig1/0/2 - 8
+ switchport mode trunk
+exit
+
+! VLAN Definitions for Head Office (HO)
+vlan 10
+ name Management
+vlan 20
+ name POS
+vlan 30
+ name CCTV
+vlan 40
+ name VoIP
+vlan 50
+ name Staff_WiFi
+vlan 60
+ name Customer_WiFi
+vlan 70
+ name Digital_Ads
+vlan 80
+ name ATM_Banking
+vlan 90
+ name Delivery_Pickup
+exit
+
+! Configure EtherChannel group on interfaces 21–24
+interface range gig1/0/21 - 24
+ channel-group 1 mode active
+exit
+
+! Configure Port-Channel 1 as trunk
+interface port-channel 1
+ switchport mode trunk
+exit
+
+end
+do write memory
+
+=============================================================================
+
+interface vlan 10
+ ip address 10.1.0.2 255.255.255.0      
+ standby 10 ip 10.1.0.1
+ standby 10 priority 110
+ standby 10 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 20
+ ip address 10.1.1.2 255.255.255.0      
+ standby 20 ip 10.1.1.1
+ standby 20 priority 110
+ standby 20 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 30
+ ip address 10.1.2.2 255.255.255.0      
+ standby 30 ip 10.1.2.1
+ standby 30 priority 110
+ standby 30 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 40
+ ip address 10.1.3.2 255.255.255.0     
+ standby 40 ip 10.1.3.1
+ standby 40 priority 110
+ standby 40 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 50
+ ip address 10.1.4.2 255.255.255.0      
+ standby 50 ip 10.1.4.1
+ standby 50 priority 110
+ standby 50 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 60
+ ip address 10.1.5.2 255.255.255.0      
+ standby 60 ip 10.1.5.1
+ standby 60 priority 110
+ standby 60 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 70
+ ip address 10.1.6.2 255.255.255.0      
+ standby 70 ip 10.1.6.1
+ standby 70 priority 110
+ standby 70 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 80
+ ip address 10.1.7.2 255.255.255.0     
+ standby 80 ip 10.1.7.1
+ standby 80 priority 110
+ standby 80 preempt
+ ip helper-address 40.0.1.2
+
+interface vlan 90
+ ip address 10.1.8.2 255.255.255.0      
+ standby 90 ip 10.1.8.1
+ standby 90 priority 110
+ standby 90 preempt
+ ip helper-address 40.0.1.2
+
+
+===============================================================================
+
+SW 1
+
+ip routing 
+router ospf 2
+network 10.1.0.0 0.0.0.255 area 0
+network 10.1.1.0 0.0.0.255 area 0
+network 10.1.2.0 0.0.0.255 area 0
+network 10.1.3.0 0.0.0.255 area 0
+network 10.1.4.0 0.0.0.255 area 0
+network 10.1.5.0 0.0.0.255 area 0
+network 10.1.6.0 0.0.0.255 area 0
+network 10.1.7.0 0.0.0.255 area 0
+network 10.1.8.0 0.0.0.255 area 0
+
+network 10.10.30.0 0.0.0.3 area 0
+

@@ -1,0 +1,44 @@
+interface GigabitEthernet0/1.10
+ description Management
+ encapsulation dot1Q 10
+ ip address 10.1.0.1 255.255.255.0
+
+interface GigabitEthernet0/1.20
+ description POS
+ encapsulation dot1Q 20
+ ip address 10.1.1.1 255.255.255.0
+
+interface GigabitEthernet0/1.30
+ description CCTV
+ encapsulation dot1Q 30
+ ip address 10.1.2.1 255.255.255.0
+
+interface GigabitEthernet0/1.40
+ description VoIP
+ encapsulation dot1Q 40
+ ip address 10.1.3.1 255.255.255.0
+
+interface GigabitEthernet0/1.50
+ description Staff Wi-Fi
+ encapsulation dot1Q 50
+ ip address 10.1.4.1 255.255.255.0
+
+interface GigabitEthernet0/1.60
+ description Customer Wi-Fi
+ encapsulation dot1Q 60
+ ip address 10.1.5.1 255.255.255.0
+
+interface GigabitEthernet0/1.70
+ description Digital Ads
+ encapsulation dot1Q 70
+ ip address 10.1.6.1 255.255.255.0
+
+interface GigabitEthernet0/1.80
+ description ATM/Banking
+ encapsulation dot1Q 80
+ ip address 10.1.7.1 255.255.255.0
+
+interface GigabitEthernet0/1.90
+ description Delivery
+ encapsulation dot1Q 90
+ ip address 10.1.8.1 255.255.255.0

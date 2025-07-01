@@ -1,0 +1,10 @@
+| **Department / VLAN** | **Subnet**  | **Gateway IP** | **Usage**              |
+| --------------------- | ----------- | -------------- | ---------------------- |
+| Management VLAN       | 10.0.0.0/24 | 10.0.0.1       | Admin, NOC             |
+| POS VLAN              | 10.0.1.0/24 | 10.0.1.1       | Sales systems          |
+| CCTV VLAN             | 10.0.2.0/24 | 10.0.2.1       | Security cameras (NVR) |
+| VoIP VLAN             | 10.0.3.0/24 | 10.0.3.1       | Phones, SIP systems    |
+| Staff Wi-Fi VLAN      | 10.0.4.0/24 | 10.0.4.1       | Internal staff devices |
+| Customer Wi-Fi VLAN   | 10.0.5.0/24 | 10.0.5.1       | Guest network          |
+| Digital Ads VLAN      | 10.0.6.0/24 | 10.0.6.1       | LCD panels, clocks     |
+| Delivery/Order VLAN   | 10.0.7.0/24 | 10.0.7.1       | Logistics, tracking    |

@@ -1,0 +1,19 @@
+interface GigabitEthernet0/1.10
+ encapsulation dot1Q 10
+ ip address 10.3.0.1 255.255.255.192  ! VLAN 10 - Management (10.3.0.0/26)
+
+interface GigabitEthernet0/1.20
+ encapsulation dot1Q 20
+ ip address 10.3.0.65 255.255.255.192  ! VLAN 20 - POS (10.3.0.64/26)
+
+interface GigabitEthernet0/1.30
+ encapsulation dot1Q 30
+ ip address 10.3.1.1 255.255.255.192  ! VLAN 30 - CCTV (10.3.1.0/26)
+
+interface GigabitEthernet0/1.40
+ encapsulation dot1Q 40
+ ip address 10.3.1.65 255.255.255.192  ! VLAN 40 - VoIP (10.3.1.64/26)
+
+interface GigabitEthernet0/1.50
+ encapsulation dot1Q 50
+ ip address 10.3.2.1 255.255.255.192  ! VLAN 50 - Staff Wi-Fi (10.3.2.0/26)

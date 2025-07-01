@@ -1,0 +1,130 @@
+Distibution Switch 1 =====================================================================================
+interface vlan 10
+ ip address 10.0.0.2 255.255.255.0
+ standby 10 ip 10.0.0.1
+ standby 10 priority 110
+ standby 10 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 20
+ ip address 10.0.1.2 255.255.255.0
+ standby 20 ip 10.0.1.1
+ standby 20 priority 110
+ standby 20 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 30
+ ip address 10.0.2.2 255.255.255.0
+ standby 30 ip 10.0.2.1
+ standby 30 priority 110
+ standby 30 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 40
+ ip address 10.0.3.2 255.255.255.0
+ standby 40 ip 10.0.3.1
+ standby 40 priority 110
+ standby 40 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 50
+ ip address 10.0.4.2 255.255.255.0
+ standby 50 ip 10.0.4.1
+ standby 50 priority 110
+ standby 50 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 60
+ ip address 10.0.5.2 255.255.255.0
+ standby 60 ip 10.0.5.1
+ standby 60 priority 110
+ standby 60 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 70
+ ip address 10.0.6.2 255.255.255.0
+ standby 70 ip 10.0.6.1
+ standby 70 priority 110
+ standby 70 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 80
+ ip address 10.0.7.2 255.255.255.0
+ standby 80 ip 10.0.7.1
+ standby 80 priority 110
+ standby 80 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 90
+ ip address 10.0.8.2 255.255.255.0
+ standby 90 ip 10.0.8.1
+ standby 90 priority 110
+ standby 90 preempt
+ ip helper-address 10.20.10.10
+
+
+Distribution Switch 2=============================================================================
+
+interface vlan 10
+ ip address 10.0.0.3 255.255.255.0
+ standby 10 ip 10.0.0.1
+ standby 10 priority 100
+ standby 10 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 20
+ ip address 10.0.1.3 255.255.255.0
+ standby 20 ip 10.0.1.1
+ standby 20 priority 100
+ standby 20 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 30
+ ip address 10.0.2.3 255.255.255.0
+ standby 30 ip 10.0.2.1
+ standby 30 priority 100
+ standby 30 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 40
+ ip address 10.0.3.3 255.255.255.0
+ standby 40 ip 10.0.3.1
+ standby 40 priority 100
+ standby 40 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 50
+ ip address 10.0.4.3 255.255.255.0
+ standby 50 ip 10.0.4.1
+ standby 50 priority 100
+ standby 50 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 60
+ ip address 10.0.5.3 255.255.255.0
+ standby 60 ip 10.0.5.1
+ standby 60 priority 100
+ standby 60 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 70
+ ip address 10.0.6.3 255.255.255.0
+ standby 70 ip 10.0.6.1
+ standby 70 priority 100
+ standby 70 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 80
+ ip address 10.0.7.3 255.255.255.0
+ standby 80 ip 10.0.7.1
+ standby 80 priority 100
+ standby 80 preempt
+ ip helper-address 10.20.10.10
+
+interface vlan 90
+ ip address 10.0.8.3 255.255.255.0
+ standby 90 ip 10.0.8.1
+ standby 90 priority 100
+ standby 90 preempt
+ ip helper-address 10.20.10.10
+

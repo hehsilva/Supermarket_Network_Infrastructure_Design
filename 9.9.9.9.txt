@@ -1,0 +1,152 @@
+interface gigabitEthernet 1/2
+no shutdown 
+nameif INSIDE1
+security-level 100
+ip address 10.10.70.1 255.255.255.252
+exit
+
+
+interface gigabitEthernet 1/1
+no shutdown
+nameif OUTSIDE
+security-level 0
+ip address 192.248.1.50 255.255.255.252
+exit
+
+router ospf 2
+router-id 9.9.9.9
+network 10.10.70.0 255.255.255.252 area 0
+network 192.248.1.48 255.255.255.252 area 0
+exit
+
+object network INSIDE1-OUTSIDE
+subnet 10.3.0.0 255.255.255.192 
+nat (INSIDE1,OUTSIDE) dynamic interface 
+exit
+
+object network INSIDE2-OUTSIDE
+subnet 10.3.0.64 255.255.255.192 
+nat (INSIDE1,OUTSIDE) dynamic interface 
+exit
+
+
+object network INSIDE3-OUTSIDE
+subnet 10.3.1.0 255.255.255.192 
+nat (INSIDE1,OUTSIDE) dynamic interface 
+exit
+
+
+object network INSIDE4-OUTSIDE
+subnet 10.3.1.64 255.255.255.192 
+nat (INSIDE1,OUTSIDE) dynamic interface 
+exit
+
+object network INSIDE5-OUTSIDE
+subnet 10.3.2.0 255.255.255.192 
+nat (INSIDE1,OUTSIDE) dynamic interface 
+exit
+
+
+access-list RES3 extended permit icmp any any 
+access-list RES3 extended permit tcp any any eq 80
+access-list RES3 extended permit tcp any any eq 443
+
+	
+access-group RES3 in interface OUTSIDE
+
+route OUTSIDE 0.0.0.0 0.0.0.0 192.248.1.49
+
+HQ-FW(config)#crypto ikev1 policy 12
+HQ-FW(config-ikev1-policy)#hash sha
+HQ-FW(config-ikev1-policy)#authentication pre-share 
+HQ-FW(config-ikev1-policy)#group 2
+HQ-FW(config-ikev1-policy)#lifetime 86400
+HQ-FW(config-ikev1-policy)#encryption 3des 
+--------------------------------------------
+
+HQ-FW(config)#tunnel-group 192.248.1.2 type IPsec-l2l 
+HQ-FW(config)#tunnel-group 192.248.1.2 IPsec-attributes		 
+HQ-FW(config-tunnel-ipsec)#ikev1 pre-shared-key cisco
+
+HQ-FW(config)#crypto ipsec ikev1 transform-set TEST esp-3des esp-sha-hmac 
+
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.0.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.1.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.2.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.3.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.4.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.5.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.6.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.7.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.0 255.255.255.192 10.0.8.0 255.255.255.0
+
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.0.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.1.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.2.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.3.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.4.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.5.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.6.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.7.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.0.64 255.255.255.192 10.0.8.0 255.255.255.0
+
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.0.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.1.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.2.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.3.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.4.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.5.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.6.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.7.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.0 255.255.255.192 10.0.8.0 255.255.255.0
+
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.0.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.1.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.2.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.3.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.4.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.5.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.6.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.7.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.1.64 255.255.255.192 10.0.8.0 255.255.255.0
+
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.0.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.1.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.2.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.3.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.4.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.5.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.6.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.7.0 255.255.255.0
+access-list VPN-ACL permit ip 10.3.2.0 255.255.255.192 10.0.8.0 255.255.255.0
+
+
+HQ-FW(config)#crypto map CMAP 10 set peer 192.248.1.2
+HQ-FW(config)#crypto map CMAP 10 set ikev1 transform-set TEST
+HQ-FW(config)#crypto map CMAP 10 match address VPN-ACL
+
+
+HQ-FW(config)#crypto ikev1 enable OUTSIDE 
+HQ-FW(config)#crypto map CMAP interface OUTSIDE 
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

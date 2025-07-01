@@ -1,0 +1,41 @@
+enable
+configure terminal
+
+! Enable trunking on uplink interfaces
+interface range gig1/0/2 - 8
+ switchport mode trunk
+exit
+
+! VLAN Definitions with updated names and subnets
+vlan 10
+ name Management
+vlan 20
+ name POS
+vlan 30
+ name CCTV
+vlan 40
+ name VoIP
+vlan 50
+ name Staff_Wi-Fi
+vlan 60
+ name Customer_Wi-Fi
+vlan 70
+ name Digital_Ads
+vlan 80
+ name ATM_Banking
+vlan 90
+ name Delivery
+exit
+
+! Configure EtherChannel group on interfaces 21–24
+interface range gig1/0/21 - 24
+ channel-group 1 mode active
+exit
+
+! Configure Port-Channel 1 as trunk
+interface port-channel 1
+ switchport mode trunk
+exit
+
+end
+do write memory
