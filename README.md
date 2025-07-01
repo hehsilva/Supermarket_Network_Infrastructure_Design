@@ -59,5 +59,9 @@ As part of this group project, I was responsible for:
 
 Connectivity was verified between branches and the head office using simulated ping and firewall communication paths.
 
+----------------------------
+
+🎓 *This project was developed as part of the CN301.3 – Advanced Routing & Switching module (Batch 22.2) under the guidance of Mr. Chamindra Attanayake.*
+
 
 
